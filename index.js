@@ -121,6 +121,12 @@ function redirectaddress( addr ) {
 const server = http.createServer( function ( req, res ) {
 
   let actualfile = redirectaddress( req.url )
+  let qstring = ""
+  if( actualfile.indexOf( "?" ) > -1 )
+  {
+    qstring = actualfile.substring( actualfile.indexOf( "?" ) )
+    actualfile = actualfile.substring( 0, actualfile.indexOf( "?" ) ) 
+  }
   if( "/" == actualfile.slice( -1 ) ) actualfile += "index.html"
 
   fs.readFile( localwebroot + actualfile, "utf8", function ( err, data ) {
